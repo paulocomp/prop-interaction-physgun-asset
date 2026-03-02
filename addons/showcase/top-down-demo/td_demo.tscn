@@ -1,3 +1,83 @@
 [gd_scene format=3 uid="uid://b7kdx35mxjya1"]
 
+[ext_resource type="Texture2D" uid="uid://c7rjexcq04emw" path="res://prop-interaction-framework/addons/third-party/godot-prototype-texture/PNG/grid_1024x1024/grid_black_1024x1024.png" id="1_kaun1"]
+[ext_resource type="Texture2D" uid="uid://bpk43tme3cm2k" path="res://prop-interaction-framework/addons/third-party/godot-prototype-texture/PNG/checker_512x512/checker_orange_512x512.png" id="3_1fjbt"]
+
+[sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_63hkr"]
+sky_horizon_color = Color(0.66224277, 0.6717428, 0.6867428, 1)
+ground_horizon_color = Color(0.66224277, 0.6717428, 0.6867428, 1)
+
+[sub_resource type="Sky" id="Sky_kaun1"]
+sky_material = SubResource("ProceduralSkyMaterial_63hkr")
+
+[sub_resource type="Environment" id="Environment_a25e7"]
+background_mode = 2
+sky = SubResource("Sky_kaun1")
+tonemap_mode = 2
+glow_enabled = true
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_a25e7"]
+albedo_texture = ExtResource("1_kaun1")
+uv1_triplanar = true
+texture_filter = 4
+
+[sub_resource type="BoxMesh" id="BoxMesh_63hkr"]
+size = Vector3(10, 1, 10)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_63hkr"]
+size = Vector3(10, 1, 10)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_5xkgv"]
+albedo_texture = ExtResource("3_1fjbt")
+uv1_triplanar = true
+texture_filter = 4
+
+[sub_resource type="BoxMesh" id="BoxMesh_a25e7"]
+size = Vector3(0.5, 1, 0.5)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_a25e7"]
+size = Vector3(0.5, 1, 0.5)
+
 [node name="TdDemo" type="Node3D" unique_id=1561020677]
+
+[node name="Environment" type="Node3D" parent="." unique_id=79685008]
+metadata/_edit_group_ = true
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="Environment" unique_id=1008258190]
+environment = SubResource("Environment_a25e7")
+
+[node name="DirectionalLight3D" type="DirectionalLight3D" parent="Environment" unique_id=253781102]
+transform = Transform3D(-0.8660254, -0.43301278, 0.25, 0, 0.49999997, 0.86602545, -0.50000006, 0.75, -0.43301266, 0, 0, 0)
+shadow_enabled = true
+
+[node name="Ground" type="StaticBody3D" parent="." unique_id=1047645483]
+metadata/_edit_group_ = true
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="Ground" unique_id=1516552131]
+material_override = SubResource("StandardMaterial3D_a25e7")
+mesh = SubResource("BoxMesh_63hkr")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Ground" unique_id=920063199]
+shape = SubResource("BoxShape3D_63hkr")
+
+[node name="Camera3D" type="Camera3D" parent="." unique_id=831567017]
+transform = Transform3D(1, 0, 0, 0, 0.68663085, 0.72700626, 0, -0.72700626, 0.68663085, 0, 3.5226774, 6)
+metadata/_edit_group_ = true
+
+[node name="Interactor" type="Node3D" parent="Camera3D" unique_id=1455480549]
+transform = Transform3D(1, 0, 0, 0, 0.68663085, -0.72700626, 0, 0.72700626, 0.68663085, 0, 1.9432588, -6.680794)
+
+[node name="Props" type="Node3D" parent="." unique_id=530488955]
+
+[node name="Prop0" type="Node3D" parent="Props" unique_id=1824761748]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
+metadata/_edit_group_ = true
+
+[node name="RigidBody3D" type="RigidBody3D" parent="Props/Prop0" unique_id=333494045]
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="Props/Prop0/RigidBody3D" unique_id=106074468]
+material_override = SubResource("StandardMaterial3D_5xkgv")
+mesh = SubResource("BoxMesh_a25e7")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Props/Prop0/RigidBody3D" unique_id=23143947]
+shape = SubResource("BoxShape3D_a25e7")
