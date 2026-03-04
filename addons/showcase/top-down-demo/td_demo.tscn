@@ -1,18 +1,22 @@
 [gd_scene format=3 uid="uid://b7kdx35mxjya1"]
 
 [ext_resource type="Texture2D" uid="uid://c7rjexcq04emw" path="res://prop-interaction-framework/addons/third-party/godot-prototype-texture/PNG/grid_1024x1024/grid_black_1024x1024.png" id="1_kaun1"]
+[ext_resource type="Script" uid="uid://c1jg0ykv0x1ts" path="res://prop-interaction-framework/addons/prop-interaction/code/core/interactor.gd" id="2_5xkgv"]
 [ext_resource type="Texture2D" uid="uid://bpk43tme3cm2k" path="res://prop-interaction-framework/addons/third-party/godot-prototype-texture/PNG/checker_512x512/checker_orange_512x512.png" id="3_1fjbt"]
+[ext_resource type="Script" uid="uid://c1engl6178b6m" path="res://prop-interaction-framework/addons/prop-interaction/code/core/prop.gd" id="3_vedec"]
+[ext_resource type="Script" uid="uid://dmwos4uct0q5m" path="res://prop-interaction-framework/addons/prop-interaction/code/core/prop_behaviour.gd" id="4_3b7ul"]
+[ext_resource type="Script" uid="uid://dlak84ra64ufr" path="res://prop-interaction-framework/addons/prop-interaction/code/components/grab_behaviour.gd" id="5_ynviq"]
 
 [sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_63hkr"]
 sky_horizon_color = Color(0.66224277, 0.6717428, 0.6867428, 1)
 ground_horizon_color = Color(0.66224277, 0.6717428, 0.6867428, 1)
 
-[sub_resource type="Sky" id="Sky_kaun1"]
+[sub_resource type="Sky" id="Sky_5xkgv"]
 sky_material = SubResource("ProceduralSkyMaterial_63hkr")
 
 [sub_resource type="Environment" id="Environment_a25e7"]
 background_mode = 2
-sky = SubResource("Sky_kaun1")
+sky = SubResource("Sky_5xkgv")
 tonemap_mode = 2
 glow_enabled = true
 
@@ -22,10 +26,15 @@ uv1_triplanar = true
 texture_filter = 4
 
 [sub_resource type="BoxMesh" id="BoxMesh_63hkr"]
-size = Vector3(10, 1, 10)
+size = Vector3(30, 1, 10)
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_63hkr"]
-size = Vector3(10, 1, 10)
+size = Vector3(30, 1, 10)
+
+[sub_resource type="Resource" id="Resource_7jwih"]
+script = ExtResource("5_ynviq")
+trigger = "throw"
+metadata/_custom_type_script = "uid://dlak84ra64ufr"
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_5xkgv"]
 albedo_texture = ExtResource("3_1fjbt")
@@ -61,19 +70,34 @@ mesh = SubResource("BoxMesh_63hkr")
 shape = SubResource("BoxShape3D_63hkr")
 
 [node name="Camera3D" type="Camera3D" parent="." unique_id=831567017]
-transform = Transform3D(1, 0, 0, 0, 0.68663085, 0.72700626, 0, -0.72700626, 0.68663085, 0, 3.5226774, 6)
+transform = Transform3D(1, 0, 0, 0, 0.47507143, 0.87994725, 0, -0.87994725, 0.47507143, 0, 4.5226774, 4)
 metadata/_edit_group_ = true
 
 [node name="Interactor" type="Node3D" parent="Camera3D" unique_id=1455480549]
 transform = Transform3D(1, 0, 0, 0, 0.68663085, -0.72700626, 0, 0.72700626, 0.68663085, 0, 1.9432588, -6.680794)
+script = ExtResource("2_5xkgv")
+origin = 0
+ray_reach = 20.0
+input_actions = {
+"approx_action": "approx",
+"grab_action": "grab",
+"recede_action": "recede",
+"spin_action": "spin",
+"throw_action": "throw"
+}
 
 [node name="Props" type="Node3D" parent="." unique_id=530488955]
 
 [node name="Prop0" type="Node3D" parent="Props" unique_id=1824761748]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
+script = ExtResource("3_vedec")
+trigger = "throw"
+behaviour_components = Array[ExtResource("4_3b7ul")]([SubResource("Resource_7jwih")])
 metadata/_edit_group_ = true
 
 [node name="RigidBody3D" type="RigidBody3D" parent="Props/Prop0" unique_id=333494045]
+collision_layer = 4
+collision_mask = 5
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="Props/Prop0/RigidBody3D" unique_id=106074468]
 material_override = SubResource("StandardMaterial3D_5xkgv")

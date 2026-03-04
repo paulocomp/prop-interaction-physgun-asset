@@ -1,43 +1,7 @@
-################################################################################
-#
-# Class: Interactor
-# Purpose: []
-#
-# Signals:
-#   -
-#
-# Attributes:
-#	- origin [RayOriginMode]:
-#		Determines whether object detection originates the screen center or the
-#		cursor position. Other modes can be added in the future.
-#	
-#   - reach [float]:
-#		Defines the maximum distance at which objects can be detected by the 
-#		DSS raycast.
-#	
-#   - ray_mask [int]:
-#		DSS raycast collision mask for interaction with Props.
-#	
-#   - input_actions [Dictionary]:
-#		Maps custom input action names to the engine's InputMap, allowing users
-#		to define their own action names.
-#
-#   - input_state [Dictionary]:
-#   - detected_prop [Prop]:
-#   - current_prop [Prop]:
-#
-# Methods:
-#   - get_input_state():
-#   - _update_input_state():
-#   - _detect_prop():
-#   - _cast_ray():
-#   - _bind_prop():
-#   - _unbind_prop():
-#
-################################################################################
-
 class_name Interactor
 extends Node3D
+
+signal set_camera_mov_status(active: bool)
 
 enum RayOriginMode {
 	CURSOR_MODE,
@@ -45,8 +9,8 @@ enum RayOriginMode {
 }
 
 @export var origin : RayOriginMode = RayOriginMode.CAMERA_MODE
-@export var reach : float = 6.0
 @export var ray_mask : int = 3
+@export var ray_reach : float = 6.0
 
 @export var input_actions : Dictionary = {
 	"grab_action": "",
@@ -83,12 +47,11 @@ var input_state : Dictionary = {
 var detected_prop : Prop
 var current_prop : Prop
 
-
-func _ready() -> void:
-	pass
+var camera_controller_ref : Script
 
 
 func _physics_process(_delta: float) -> void:
+	_process_input()
 	var res: Dictionary = _detect_prop(_get_ray_origin())
 	var p: Prop = res["collider"]
 	
@@ -107,35 +70,36 @@ func _physics_process(_delta: float) -> void:
 
 
 func _input(event: InputEvent) -> void:
-	if event is InputEventAction:
-		var action = event.action
-		
-		if action == input_actions["grab_action"]:
-			_update_input_state("grab", event)
-		elif action == input_actions["spin_action"]:
-			_update_input_state("spin", event)
-		elif action == input_actions["throw_action"]:
-			_update_input_state("throw", event)
-		elif action == input_actions["approx_action"]:
-			_update_input_state("approx", event)
-		elif action == input_actions["recede_action"]:
-			_update_input_state("recede", event)
 	
 	if event is InputEventMouseMotion:
 		_update_mouse_delta(event.relative)
 
 
+## Returns the state of an input action.
+## [param action_name] is the action, [param state] can be
+## [code]"pressed"[/code], [code]"just_pressed"[/code] or [code]"just_released"[/code].
+## [codeblock lang=gdscript]
+## if get_action_state("throw", "just_pressed"):
+##     throw_object()
+## [/codeblock]
 func get_input_state(action_name: String, state: String = "pressed") -> bool:
 	return input_state.get(action_name + "_" + state, false)
 
 
-func _update_input_state(action_name: String, event: InputEventAction) -> void:
-	input_state[action_name + "_pressed"] = event.pressed
-	input_state[action_name + "_just_pressed"] = event.pressed and not event.echo
-	input_state[action_name + "_released"] = not event.pressed
+func _process_input() -> void:
+	for action_key in input_actions:
+		var action_name = action_key.replace("_action", "")
+		var action = input_actions[action_key]
+		
+		if action == "":
+			continue
+		
+		input_state[action_name + "_pressed"]      = Input.is_action_pressed(action)
+		input_state[action_name + "_just_pressed"] = Input.is_action_just_pressed(action)
+		input_state[action_name + "_released"]     = Input.is_action_just_released(action)
 
 
-func _update_mouse_delta(m_delta: Vector2):
+func _update_mouse_delta(m_delta: Vector2) -> void:
 	input_state["mouse_delta"] += m_delta
 
 
@@ -143,7 +107,7 @@ func _detect_prop(ray_origin: Vector2) -> Dictionary:
 	var camera = get_viewport().get_camera_3d()
 	var from = camera.project_ray_origin(ray_origin)
 	var normal = camera.project_ray_normal(ray_origin)
-	var to = from + normal * reach
+	var to = from + normal * ray_reach
 	var result = _cast_ray(from, to)
 	
 	if result:
@@ -166,12 +130,16 @@ func _detect_prop(ray_origin: Vector2) -> Dictionary:
 func _bind_prop(p: Prop) -> void:
 	p.connect("req_interaction_start", _on_interaction_requested)
 	p.connect("req_interaction_end", _on_interaction_ended)
+	p.connect("set_camera_mov_status", _on_set_camera_mov_status)
+	p.interactor_ref = self
 
 
 func _unbind_prop(p: Prop) -> void:
 	if is_instance_valid(p):
 		p.disconnect("req_interaction_start", _on_interaction_requested)
 		p.disconnect("req_interaction_end", _on_interaction_ended)
+		p.disconnect("set_camera_mov_status", _on_set_camera_mov_status)
+		p.interactor_ref = null
 
 
 func _get_ray_origin() -> Vector2:
@@ -185,7 +153,7 @@ func _get_ray_origin() -> Vector2:
 			return Vector2.ZERO
 
 
-func _cast_ray(start_pos: Vector3, end_pos: Vector3):
+func _cast_ray(start_pos: Vector3, end_pos: Vector3) -> Dictionary:
 	var space = get_world_3d().direct_space_state
 	var query = PhysicsRayQueryParameters3D.create(start_pos, end_pos)
 	var result = space.intersect_ray(query)
@@ -193,9 +161,15 @@ func _cast_ray(start_pos: Vector3, end_pos: Vector3):
 	return result
 
 
-func _on_interaction_requested():
+func _on_interaction_requested() -> void:
 	current_prop = detected_prop
 
 
-func _on_interaction_ended():
+func _on_interaction_ended() -> void:
 	current_prop = null
+
+
+# Re-routes the prop signal outward, allowing the Player to handle camera
+# movement blocking.
+func _on_set_camera_mov_status(active: bool) -> void:
+	set_camera_mov_status.emit(active)

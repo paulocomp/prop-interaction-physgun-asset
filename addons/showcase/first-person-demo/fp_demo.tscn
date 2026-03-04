@@ -1,3 +1,49 @@
 [gd_scene format=3 uid="uid://c8i2b576djbyb"]
 
+[ext_resource type="Texture2D" uid="uid://c7rjexcq04emw" path="res://prop-interaction-framework/addons/third-party/godot-prototype-texture/PNG/grid_1024x1024/grid_black_1024x1024.png" id="1_6e2aw"]
+
+[sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_4vxr6"]
+sky_horizon_color = Color(0.66224277, 0.6717428, 0.6867428, 1)
+ground_horizon_color = Color(0.66224277, 0.6717428, 0.6867428, 1)
+
+[sub_resource type="Sky" id="Sky_kaun1"]
+sky_material = SubResource("ProceduralSkyMaterial_4vxr6")
+
+[sub_resource type="Environment" id="Environment_gg6o3"]
+background_mode = 2
+sky = SubResource("Sky_kaun1")
+tonemap_mode = 2
+glow_enabled = true
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_1cekj"]
+albedo_texture = ExtResource("1_6e2aw")
+uv1_triplanar = true
+texture_filter = 4
+
+[sub_resource type="BoxMesh" id="BoxMesh_n2e78"]
+size = Vector3(10, 1, 10)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_3eir3"]
+size = Vector3(10, 1, 10)
+
 [node name="FpDemo" type="Node3D" unique_id=1960816100]
+
+[node name="Environment" type="Node3D" parent="." unique_id=418662753]
+metadata/_edit_group_ = true
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="Environment" unique_id=1595280165]
+environment = SubResource("Environment_gg6o3")
+
+[node name="DirectionalLight3D" type="DirectionalLight3D" parent="Environment" unique_id=964613167]
+transform = Transform3D(-0.8660254, -0.43301278, 0.25, 0, 0.49999997, 0.86602545, -0.50000006, 0.75, -0.43301266, 0, 0, 0)
+shadow_enabled = true
+
+[node name="Ground" type="StaticBody3D" parent="." unique_id=1314687180]
+metadata/_edit_group_ = true
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="Ground" unique_id=1958971651]
+material_override = SubResource("StandardMaterial3D_1cekj")
+mesh = SubResource("BoxMesh_n2e78")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Ground" unique_id=1478920745]
+shape = SubResource("BoxShape3D_3eir3")
