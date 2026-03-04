@@ -49,6 +49,8 @@ var current_prop : Prop
 
 var camera_controller_ref : Script
 
+var ray_hit_pos: Vector3
+
 
 func _physics_process(_delta: float) -> void:
 	_process_input()
@@ -67,10 +69,11 @@ func _physics_process(_delta: float) -> void:
 			detected_prop.evaluate_interaction()
 	else:
 		current_prop.update_interaction()
+	
+	print(detected_prop)
 
 
 func _input(event: InputEvent) -> void:
-	
 	if event is InputEventMouseMotion:
 		_update_mouse_delta(event.relative)
 
@@ -108,6 +111,7 @@ func _detect_prop(ray_origin: Vector2) -> Dictionary:
 	var from = camera.project_ray_origin(ray_origin)
 	var normal = camera.project_ray_normal(ray_origin)
 	var to = from + normal * ray_reach
+	ray_hit_pos = to
 	var result = _cast_ray(from, to)
 	
 	if result:
@@ -127,6 +131,16 @@ func _detect_prop(ray_origin: Vector2) -> Dictionary:
 	}
 
 
+func _get_ray_origin() -> Vector2:
+	match origin:
+		RayOriginMode.CURSOR_MODE:
+			return get_viewport().get_mouse_position()
+		RayOriginMode.CAMERA_MODE:
+			return get_viewport().get_visible_rect().size / 2.0
+		_:
+			return Vector2.ZERO
+
+
 func _bind_prop(p: Prop) -> void:
 	p.connect("req_interaction_start", _on_interaction_requested)
 	p.connect("req_interaction_end", _on_interaction_ended)
@@ -140,17 +154,6 @@ func _unbind_prop(p: Prop) -> void:
 		p.disconnect("req_interaction_end", _on_interaction_ended)
 		p.disconnect("set_camera_mov_status", _on_set_camera_mov_status)
 		p.interactor_ref = null
-
-
-func _get_ray_origin() -> Vector2:
-	match origin:
-		RayOriginMode.CURSOR_MODE:
-			return get_viewport().get_mouse_position()
-		RayOriginMode.CAMERA_MODE:
-			var camera_pos = get_viewport().get_camera_3d().global_position
-			return Vector2(camera_pos.x, camera_pos.y)
-		_:
-			return Vector2.ZERO
 
 
 func _cast_ray(start_pos: Vector3, end_pos: Vector3) -> Dictionary:
