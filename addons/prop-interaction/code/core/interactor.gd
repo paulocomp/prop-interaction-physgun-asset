@@ -69,8 +69,6 @@ func _physics_process(_delta: float) -> void:
 			detected_prop.evaluate_interaction()
 	else:
 		current_prop.update_interaction()
-	
-	print(detected_prop)
 
 
 func _input(event: InputEvent) -> void:
@@ -115,6 +113,7 @@ func _detect_prop(ray_origin: Vector2) -> Dictionary:
 	var result = _cast_ray(from, to)
 	
 	if result:
+		ray_hit_pos = result.position
 		var node = result.collider as Node
 		
 		while node != null:

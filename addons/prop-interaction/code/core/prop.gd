@@ -12,11 +12,13 @@ signal set_camera_mov_status(active: bool)
 @export var behaviour_components : Array[PropBehaviour]
 
 var interactor_ref : Interactor
-
+var target_rest_pos_y : float
 
 func _ready() -> void:
 	_get_target_body()
 	_setup_components()
+	
+	target_rest_pos_y = target_body.global_transform.origin.y
 
 
 func _setup_components() -> void:
@@ -36,10 +38,9 @@ func _get_target_body() -> void:
 func evaluate_interaction() -> void:
 	if interactor_ref == null:
 		return
-	print("y")
-	if (interactor_ref.get_input_state(trigger, "just_pressed")):
+	if interactor_ref.get_input_state(trigger, "just_pressed"):
 		request_interaction_start()
-	if (interactor_ref.get_input_state(trigger, "released")):
+	if interactor_ref.get_input_state(trigger, "released"):
 		request_interaction_end()
 
 
