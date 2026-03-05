@@ -124,6 +124,9 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
 [node name="Interactor" type="Node3D" parent="CharacterBody3D" unique_id=1400569942]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
 script = ExtResource("3_gg6o3")
+origin = null
+ray_mask = null
+ray_reach = null
 input_actions = {
 "approx_action": "approx",
 "grab_action": "grab",

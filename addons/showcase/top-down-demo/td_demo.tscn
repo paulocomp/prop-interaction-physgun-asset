@@ -31,8 +31,9 @@ size = Vector3(30, 1, 10)
 [sub_resource type="BoxShape3D" id="BoxShape3D_63hkr"]
 size = Vector3(30, 1, 10)
 
-[sub_resource type="Resource" id="Resource_7jwih"]
+[sub_resource type="Resource" id="Resource_3b7ul"]
 script = ExtResource("5_ynviq")
+hover_height = 0.6
 trigger = "throw"
 metadata/_custom_type_script = "uid://dlak84ra64ufr"
 
@@ -92,7 +93,7 @@ input_actions = {
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
 script = ExtResource("3_vedec")
 trigger = "throw"
-behaviour_components = Array[ExtResource("4_3b7ul")]([SubResource("Resource_7jwih")])
+behaviour_components = Array[ExtResource("4_3b7ul")]([SubResource("Resource_3b7ul")])
 metadata/_edit_group_ = true
 
 [node name="RigidBody3D" type="RigidBody3D" parent="Props/Prop0" unique_id=333494045]
