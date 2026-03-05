@@ -8,7 +8,7 @@ enum RayOriginMode {
 	CAMERA_MODE,
 }
 
-@export var origin : RayOriginMode = RayOriginMode.CAMERA_MODE
+@export var origin := RayOriginMode.CAMERA_MODE
 @export var ray_mask : int = 3
 @export var ray_reach : float = 6.0
 
@@ -69,6 +69,8 @@ func _physics_process(_delta: float) -> void:
 			detected_prop.evaluate_interaction()
 	else:
 		current_prop.update_interaction()
+	
+	input_state["mouse_delta"] = Vector2.ZERO
 
 
 func _input(event: InputEvent) -> void:
@@ -85,6 +87,10 @@ func _input(event: InputEvent) -> void:
 ## [/codeblock]
 func get_input_state(action_name: String, state: String = "pressed") -> bool:
 	return input_state.get(action_name + "_" + state, false)
+
+
+func get_mouse_delta() -> Vector2:
+	return input_state.get("mouse_delta", Vector2.ZERO)
 
 
 func _process_input() -> void:
@@ -165,9 +171,10 @@ func _cast_ray(start_pos: Vector3, end_pos: Vector3) -> Dictionary:
 
 func _on_interaction_requested() -> void:
 	current_prop = detected_prop
-
+	set_camera_mov_status.emit(true)
 
 func _on_interaction_ended() -> void:
+	
 	current_prop = null
 
 

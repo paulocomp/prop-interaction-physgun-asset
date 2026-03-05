@@ -49,7 +49,8 @@ func evaluate_interaction() -> void:
 ## trigger is held down.
 func update_interaction() -> void:
 	for bc in behaviour_components:
-		if interactor_ref.get_input_state(bc.trigger, "pressed"):
+		if interactor_ref.get_input_state(bc.trigger, "pressed") \
+		or interactor_ref.get_input_state(bc.trigger, "released"):
 			bc.execute()
 
 
@@ -72,4 +73,5 @@ func request_interaction_start() -> void:
 
 ## Emits [signal req_interaction_end], requesting the interaction to end.
 func request_interaction_end() -> void:
+	request_camera_release()
 	req_interaction_end.emit()
