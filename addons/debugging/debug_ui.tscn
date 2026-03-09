@@ -1,0 +1,22 @@
+[gd_scene format=3 uid="uid://pj4scalt4jap"]
+
+[ext_resource type="Script" uid="uid://dd5gl5wkasr1x" path="res://prop-interaction-framework/addons/debugging/debug_ui.gd" id="1_gshd4"]
+
+[sub_resource type="LabelSettings" id="LabelSettings_tdnrb"]
+font_size = 15
+
+[node name="DebugUI" type="Label" unique_id=1403912310]
+anchors_preset = 2
+anchor_top = 1.0
+anchor_bottom = 1.0
+offset_left = 20.0
+offset_top = -67.0
+offset_right = 132.0
+offset_bottom = -20.0
+grow_vertical = 0
+size_flags_stretch_ratio = 3.96
+text = "Detected Prop: 
+Current Prop:"
+label_settings = SubResource("LabelSettings_tdnrb")
+vertical_alignment = 1
+script = ExtResource("1_gshd4")

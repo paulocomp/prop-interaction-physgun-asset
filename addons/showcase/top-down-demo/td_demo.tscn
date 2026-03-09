@@ -7,7 +7,7 @@
 [ext_resource type="Script" uid="uid://dmwos4uct0q5m" path="res://prop-interaction-framework/addons/prop-interaction/code/core/prop_behaviour.gd" id="4_3b7ul"]
 [ext_resource type="Script" uid="uid://dlak84ra64ufr" path="res://prop-interaction-framework/addons/prop-interaction/code/components/grab_behaviour.gd" id="5_ynviq"]
 [ext_resource type="Script" uid="uid://bwgkg4kewx5h5" path="res://prop-interaction-framework/addons/prop-interaction/code/components/spin_behaviour.gd" id="7_ynviq"]
-[ext_resource type="Script" uid="uid://dd5gl5wkasr1x" path="res://prop-interaction-framework/addons/debugging/debug_ui.gd" id="8_7jwih"]
+[ext_resource type="PackedScene" uid="uid://pj4scalt4jap" path="res://prop-interaction-framework/addons/debugging/debug_ui.tscn" id="8_7jwih"]
 
 [sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_63hkr"]
 sky_horizon_color = Color(0.66224277, 0.6717428, 0.6867428, 1)
@@ -55,7 +55,7 @@ size = Vector3(0.5, 1, 0.5)
 [sub_resource type="BoxShape3D" id="BoxShape3D_a25e7"]
 size = Vector3(0.5, 1, 0.5)
 
-[sub_resource type="LabelSettings" id="LabelSettings_ynviq"]
+[sub_resource type="LabelSettings" id="LabelSettings_tdnrb"]
 font_size = 15
 
 [node name="TdDemo" type="Node3D" unique_id=1561020677]
@@ -373,13 +373,6 @@ shape = SubResource("BoxShape3D_a25e7")
 [node name="HUD" type="CanvasLayer" parent="." unique_id=1580668246]
 follow_viewport_enabled = true
 
-[node name="DebugUI" type="Label" parent="HUD" unique_id=416371347 node_paths=PackedStringArray("interactor_ref")]
-offset_left = 31.0
-offset_top = 564.0
-offset_right = 165.0
-offset_bottom = 619.0
-text = "Detected Prop: 
-Current Prop:"
-label_settings = SubResource("LabelSettings_ynviq")
-script = ExtResource("8_7jwih")
+[node name="DebugUI" parent="HUD" unique_id=1403912310 node_paths=PackedStringArray("interactor_ref") instance=ExtResource("8_7jwih")]
+label_settings = SubResource("LabelSettings_tdnrb")
 interactor_ref = NodePath("../../Camera3D/Interactor")

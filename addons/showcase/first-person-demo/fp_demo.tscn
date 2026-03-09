@@ -1,7 +1,7 @@
 [gd_scene format=3 uid="uid://c8i2b576djbyb"]
 
 [ext_resource type="Texture2D" uid="uid://c7rjexcq04emw" path="res://prop-interaction-framework/addons/third-party/godot-prototype-texture/PNG/grid_1024x1024/grid_black_1024x1024.png" id="1_6e2aw"]
-[ext_resource type="Script" uid="uid://dd5gl5wkasr1x" path="res://prop-interaction-framework/addons/debugging/debug_ui.gd" id="1_qisoh"]
+[ext_resource type="PackedScene" uid="uid://pj4scalt4jap" path="res://prop-interaction-framework/addons/debugging/debug_ui.tscn" id="1_qisoh"]
 [ext_resource type="Script" uid="uid://doibpvbvxu2h7" path="res://prop-interaction-framework/addons/showcase/first-person-demo/character_body_3d_fps.gd" id="2_4vxr6"]
 [ext_resource type="Script" uid="uid://c1jg0ykv0x1ts" path="res://prop-interaction-framework/addons/prop-interaction/code/core/interactor.gd" id="3_gg6o3"]
 [ext_resource type="Script" uid="uid://c1engl6178b6m" path="res://prop-interaction-framework/addons/prop-interaction/code/core/prop.gd" id="4_m1tc5"]
@@ -15,9 +15,6 @@
 [sub_resource type="LabelSettings" id="LabelSettings_m1tc5"]
 font_size = 30
 font_color = Color(0.91764706, 0.21176471, 0.6862745, 1)
-
-[sub_resource type="LabelSettings" id="LabelSettings_tdnrb"]
-font_size = 15
 
 [sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_4vxr6"]
 sky_horizon_color = Color(0.66224277, 0.6717428, 0.6867428, 1)
@@ -95,15 +92,7 @@ label_settings = SubResource("LabelSettings_m1tc5")
 horizontal_alignment = 1
 vertical_alignment = 1
 
-[node name="DebugUI" type="Label" parent="HUD" unique_id=2113707461 node_paths=PackedStringArray("interactor_ref")]
-offset_left = 31.0
-offset_top = 564.0
-offset_right = 165.0
-offset_bottom = 619.0
-text = "Detected Prop: 
-Current Prop:"
-label_settings = SubResource("LabelSettings_tdnrb")
-script = ExtResource("1_qisoh")
+[node name="DebugUI" parent="HUD" unique_id=1403912310 node_paths=PackedStringArray("interactor_ref") instance=ExtResource("1_qisoh")]
 interactor_ref = NodePath("../../CharacterBody3D/CameraAnchorFPS/Camera3D/Interactor")
 
 [node name="Environment" type="Node3D" parent="." unique_id=418662753]
