@@ -1,6 +1,7 @@
 [gd_scene format=3 uid="uid://pj4scalt4jap"]
 
-[ext_resource type="Script" uid="uid://dd5gl5wkasr1x" path="res://prop-interaction-framework/addons/debugging/debug_ui.gd" id="1_gshd4"]
+[ext_resource type="Script" uid="uid://p4ack3p6e7yq" path="res://prop-interaction-physgun-asset/addons/debugging/debug_ui.gd" id="1_gshd4"]
+
 
 [sub_resource type="LabelSettings" id="LabelSettings_tdnrb"]
 font_size = 15
