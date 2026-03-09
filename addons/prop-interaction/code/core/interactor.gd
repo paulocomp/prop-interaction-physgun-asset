@@ -85,7 +85,7 @@ func _input(event: InputEvent) -> void:
 ## if get_action_state("throw", "just_pressed"):
 ##     throw_object()
 ## [/codeblock]
-func get_input_state(action_name: String, state: String = "pressed") -> bool:
+func get_action_state(action_name: String, state: String = "pressed") -> bool:
 	return input_state.get(action_name + "_" + state, false)
 
 
@@ -106,8 +106,8 @@ func _process_input() -> void:
 		input_state[action_name + "_released"]     = Input.is_action_just_released(action)
 
 
-func _update_mouse_delta(m_delta: Vector2) -> void:
-	input_state["mouse_delta"] += m_delta
+func _update_mouse_delta(mouse_delta: Vector2) -> void:
+	input_state["mouse_delta"] += mouse_delta
 
 
 func _detect_prop(ray_origin: Vector2) -> Dictionary:
@@ -165,7 +165,6 @@ func _cast_ray(start_pos: Vector3, end_pos: Vector3) -> Dictionary:
 	var space = get_world_3d().direct_space_state
 	var query = PhysicsRayQueryParameters3D.create(start_pos, end_pos)
 	var result = space.intersect_ray(query)
-	
 	return result
 
 
@@ -173,8 +172,8 @@ func _on_interaction_requested() -> void:
 	current_prop = detected_prop
 	set_camera_mov_status.emit(true)
 
+
 func _on_interaction_ended() -> void:
-	
 	current_prop = null
 
 

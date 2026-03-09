@@ -1,18 +1,23 @@
 [gd_scene format=3 uid="uid://c8i2b576djbyb"]
 
 [ext_resource type="Texture2D" uid="uid://c7rjexcq04emw" path="res://prop-interaction-framework/addons/third-party/godot-prototype-texture/PNG/grid_1024x1024/grid_black_1024x1024.png" id="1_6e2aw"]
+[ext_resource type="Script" uid="uid://dd5gl5wkasr1x" path="res://prop-interaction-framework/addons/debugging/debug_ui.gd" id="1_qisoh"]
 [ext_resource type="Script" uid="uid://doibpvbvxu2h7" path="res://prop-interaction-framework/addons/showcase/first-person-demo/character_body_3d_fps.gd" id="2_4vxr6"]
 [ext_resource type="Script" uid="uid://c1jg0ykv0x1ts" path="res://prop-interaction-framework/addons/prop-interaction/code/core/interactor.gd" id="3_gg6o3"]
 [ext_resource type="Script" uid="uid://c1engl6178b6m" path="res://prop-interaction-framework/addons/prop-interaction/code/core/prop.gd" id="4_m1tc5"]
 [ext_resource type="Script" uid="uid://dmwos4uct0q5m" path="res://prop-interaction-framework/addons/prop-interaction/code/core/prop_behaviour.gd" id="5_q0834"]
 [ext_resource type="Script" uid="uid://dlak84ra64ufr" path="res://prop-interaction-framework/addons/prop-interaction/code/components/grab_behaviour.gd" id="6_4mbsh"]
 [ext_resource type="Script" uid="uid://dhho5uta27uxd" path="res://prop-interaction-framework/addons/prop-interaction/code/components/throw_behaviour.gd" id="7_q0834"]
-[ext_resource type="Texture2D" uid="uid://bpk43tme3cm2k" path="res://prop-interaction-framework/addons/third-party/godot-prototype-texture/PNG/checker_512x512/checker_orange_512x512.png" id="7_tdnrb"]
 [ext_resource type="Script" uid="uid://bwgkg4kewx5h5" path="res://prop-interaction-framework/addons/prop-interaction/code/components/spin_behaviour.gd" id="8_4mbsh"]
+[ext_resource type="Texture2D" uid="uid://qdt3qm3v7u7a" path="res://prop-interaction-framework/addons/third-party/godot-prototype-texture/PNG/logo_512x512/logo_red_512x512.png" id="9_tdnrb"]
+[ext_resource type="Texture2D" uid="uid://cmwoi461ssu5g" path="res://prop-interaction-framework/addons/third-party/godot-prototype-texture/PNG/logo_512x512/logo_orange_512x512.png" id="10_qisoh"]
 
 [sub_resource type="LabelSettings" id="LabelSettings_m1tc5"]
 font_size = 30
 font_color = Color(0.91764706, 0.21176471, 0.6862745, 1)
+
+[sub_resource type="LabelSettings" id="LabelSettings_tdnrb"]
+font_size = 15
 
 [sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_4vxr6"]
 sky_horizon_color = Color(0.66224277, 0.6717428, 0.6867428, 1)
@@ -33,10 +38,10 @@ uv1_triplanar = true
 texture_filter = 4
 
 [sub_resource type="BoxMesh" id="BoxMesh_n2e78"]
-size = Vector3(10, 1, 10)
+size = Vector3(30, 1, 30)
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_3eir3"]
-size = Vector3(10, 1, 10)
+size = Vector3(30, 1, 30)
 
 [sub_resource type="CapsuleShape3D" id="CapsuleShape3D_4vxr6"]
 
@@ -54,23 +59,26 @@ script = ExtResource("8_4mbsh")
 trigger = "spin"
 metadata/_custom_type_script = "uid://bwgkg4kewx5h5"
 
-[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_qisoh"]
-albedo_texture = ExtResource("7_tdnrb")
-uv1_triplanar = true
-texture_filter = 4
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_g4yam"]
+albedo_texture = ExtResource("9_tdnrb")
+uv1_scale = Vector3(3, 2, 3)
 
 [sub_resource type="BoxMesh" id="BoxMesh_g4yam"]
-size = Vector3(0.5, 1, 0.5)
+size = Vector3(0.5, 0.5, 0.5)
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_oi7y5"]
-size = Vector3(0.5, 1, 0.5)
+size = Vector3(0.5, 0.5, 0.5)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_oi7y5"]
+albedo_texture = ExtResource("10_qisoh")
+uv1_scale = Vector3(3, 2, 3)
 
 [node name="FpDemo" type="Node3D" unique_id=1960816100]
 
 [node name="HUD" type="CanvasLayer" parent="." unique_id=1906672384]
 follow_viewport_enabled = true
 
-[node name="Label" type="Label" parent="HUD" unique_id=1663063273]
+[node name="Crosshair" type="Label" parent="HUD" unique_id=1663063273]
 anchors_preset = 8
 anchor_left = 0.5
 anchor_top = 0.5
@@ -86,6 +94,17 @@ text = "+"
 label_settings = SubResource("LabelSettings_m1tc5")
 horizontal_alignment = 1
 vertical_alignment = 1
+
+[node name="DebugUI" type="Label" parent="HUD" unique_id=2113707461 node_paths=PackedStringArray("interactor_ref")]
+offset_left = 31.0
+offset_top = 564.0
+offset_right = 165.0
+offset_bottom = 619.0
+text = "Detected Prop: 
+Current Prop:"
+label_settings = SubResource("LabelSettings_tdnrb")
+script = ExtResource("1_qisoh")
+interactor_ref = NodePath("../../CharacterBody3D/CameraAnchorFPS/Camera3D/Interactor")
 
 [node name="Environment" type="Node3D" parent="." unique_id=418662753]
 metadata/_edit_group_ = true
@@ -121,8 +140,7 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
 
 [node name="Camera3D" type="Camera3D" parent="CharacterBody3D/CameraAnchorFPS" unique_id=1758321492]
 
-[node name="Interactor" type="Node3D" parent="CharacterBody3D" unique_id=1400569942]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
+[node name="Interactor" type="Node3D" parent="CharacterBody3D/CameraAnchorFPS/Camera3D" unique_id=1400569942]
 script = ExtResource("3_gg6o3")
 input_actions = {
 "approx_action": "approx",
@@ -133,9 +151,10 @@ input_actions = {
 }
 
 [node name="Props" type="Node3D" parent="." unique_id=1774250870]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.2796638, 0, 0)
 
 [node name="Prop0" type="Node3D" parent="Props" unique_id=1002639272]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, -3)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.19889367, 1, -3)
 script = ExtResource("4_m1tc5")
 behaviour_components = Array[ExtResource("5_q0834")]([SubResource("Resource_7jwih"), SubResource("Resource_4mbsh"), SubResource("Resource_tdnrb")])
 metadata/_edit_group_ = true
@@ -145,10 +164,388 @@ collision_layer = 4
 collision_mask = 5
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="Props/Prop0/RigidBody3D" unique_id=1223659839]
-material_override = SubResource("StandardMaterial3D_qisoh")
+material_override = SubResource("StandardMaterial3D_g4yam")
 mesh = SubResource("BoxMesh_g4yam")
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="Props/Prop0/RigidBody3D" unique_id=38239017]
 shape = SubResource("BoxShape3D_oi7y5")
 
-[connection signal="set_camera_mov_status" from="CharacterBody3D/Interactor" to="CharacterBody3D" method="_on_interactor_set_camera_mov_status"]
+[node name="Prop1" type="Node3D" parent="Props" unique_id=419640130]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1, 0.8, -5)
+script = ExtResource("4_m1tc5")
+behaviour_components = Array[ExtResource("5_q0834")]([SubResource("Resource_7jwih"), SubResource("Resource_4mbsh"), SubResource("Resource_tdnrb")])
+metadata/_edit_group_ = true
+
+[node name="RigidBody3D" type="RigidBody3D" parent="Props/Prop1" unique_id=1175710264]
+collision_layer = 4
+collision_mask = 5
+mass = 0.3
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="Props/Prop1/RigidBody3D" unique_id=333966275]
+material_override = SubResource("StandardMaterial3D_oi7y5")
+mesh = SubResource("BoxMesh_g4yam")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Props/Prop1/RigidBody3D" unique_id=1030037132]
+shape = SubResource("BoxShape3D_oi7y5")
+
+[node name="Prop2" type="Node3D" parent="Props" unique_id=1142127091]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.4622056, 0.8, -5)
+script = ExtResource("4_m1tc5")
+behaviour_components = Array[ExtResource("5_q0834")]([SubResource("Resource_7jwih"), SubResource("Resource_4mbsh"), SubResource("Resource_tdnrb")])
+metadata/_edit_group_ = true
+
+[node name="RigidBody3D" type="RigidBody3D" parent="Props/Prop2" unique_id=1297288789]
+collision_layer = 4
+collision_mask = 5
+mass = 0.3
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="Props/Prop2/RigidBody3D" unique_id=882947747]
+material_override = SubResource("StandardMaterial3D_oi7y5")
+mesh = SubResource("BoxMesh_g4yam")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Props/Prop2/RigidBody3D" unique_id=1153708500]
+shape = SubResource("BoxShape3D_oi7y5")
+
+[node name="Prop3" type="Node3D" parent="Props" unique_id=1683889197]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.071600854, 0.8, -5)
+script = ExtResource("4_m1tc5")
+behaviour_components = Array[ExtResource("5_q0834")]([SubResource("Resource_7jwih"), SubResource("Resource_4mbsh"), SubResource("Resource_tdnrb")])
+metadata/_edit_group_ = true
+
+[node name="RigidBody3D" type="RigidBody3D" parent="Props/Prop3" unique_id=1783096928]
+collision_layer = 4
+collision_mask = 5
+mass = 0.3
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="Props/Prop3/RigidBody3D" unique_id=1656227279]
+material_override = SubResource("StandardMaterial3D_oi7y5")
+mesh = SubResource("BoxMesh_g4yam")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Props/Prop3/RigidBody3D" unique_id=1399077098]
+shape = SubResource("BoxShape3D_oi7y5")
+
+[node name="Prop4" type="Node3D" parent="Props" unique_id=1835845956]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.60312647, 0.8, -5)
+script = ExtResource("4_m1tc5")
+behaviour_components = Array[ExtResource("5_q0834")]([SubResource("Resource_7jwih"), SubResource("Resource_4mbsh"), SubResource("Resource_tdnrb")])
+metadata/_edit_group_ = true
+
+[node name="RigidBody3D" type="RigidBody3D" parent="Props/Prop4" unique_id=1864552253]
+collision_layer = 4
+collision_mask = 5
+mass = 0.3
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="Props/Prop4/RigidBody3D" unique_id=1587369242]
+material_override = SubResource("StandardMaterial3D_oi7y5")
+mesh = SubResource("BoxMesh_g4yam")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Props/Prop4/RigidBody3D" unique_id=1419707745]
+shape = SubResource("BoxShape3D_oi7y5")
+
+[node name="Prop5" type="Node3D" parent="Props" unique_id=1528379903]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.1508448, 0.8, -5)
+script = ExtResource("4_m1tc5")
+behaviour_components = Array[ExtResource("5_q0834")]([SubResource("Resource_7jwih"), SubResource("Resource_4mbsh"), SubResource("Resource_tdnrb")])
+metadata/_edit_group_ = true
+
+[node name="RigidBody3D" type="RigidBody3D" parent="Props/Prop5" unique_id=1788092463]
+collision_layer = 4
+collision_mask = 5
+mass = 0.3
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="Props/Prop5/RigidBody3D" unique_id=529341004]
+material_override = SubResource("StandardMaterial3D_oi7y5")
+mesh = SubResource("BoxMesh_g4yam")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Props/Prop5/RigidBody3D" unique_id=1211732390]
+shape = SubResource("BoxShape3D_oi7y5")
+
+[node name="Prop6" type="Node3D" parent="Props" unique_id=155147643]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.5410254, 0.8, -5)
+script = ExtResource("4_m1tc5")
+behaviour_components = Array[ExtResource("5_q0834")]([SubResource("Resource_7jwih"), SubResource("Resource_4mbsh"), SubResource("Resource_tdnrb")])
+metadata/_edit_group_ = true
+
+[node name="RigidBody3D" type="RigidBody3D" parent="Props/Prop6" unique_id=655597054]
+collision_layer = 4
+collision_mask = 5
+mass = 0.3
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="Props/Prop6/RigidBody3D" unique_id=224711619]
+material_override = SubResource("StandardMaterial3D_oi7y5")
+mesh = SubResource("BoxMesh_g4yam")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Props/Prop6/RigidBody3D" unique_id=1313038737]
+shape = SubResource("BoxShape3D_oi7y5")
+
+[node name="Prop7" type="Node3D" parent="Props" unique_id=492216499]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.3012458, 1.3432118, -5)
+script = ExtResource("4_m1tc5")
+behaviour_components = Array[ExtResource("5_q0834")]([SubResource("Resource_7jwih"), SubResource("Resource_4mbsh"), SubResource("Resource_tdnrb")])
+metadata/_edit_group_ = true
+
+[node name="RigidBody3D" type="RigidBody3D" parent="Props/Prop7" unique_id=1309674105]
+collision_layer = 4
+collision_mask = 5
+mass = 0.3
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="Props/Prop7/RigidBody3D" unique_id=1887851254]
+material_override = SubResource("StandardMaterial3D_oi7y5")
+mesh = SubResource("BoxMesh_g4yam")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Props/Prop7/RigidBody3D" unique_id=1987158226]
+shape = SubResource("BoxShape3D_oi7y5")
+
+[node name="Prop8" type="Node3D" parent="Props" unique_id=181507822]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.7617801, 1.3432118, -5)
+script = ExtResource("4_m1tc5")
+behaviour_components = Array[ExtResource("5_q0834")]([SubResource("Resource_7jwih"), SubResource("Resource_4mbsh"), SubResource("Resource_tdnrb")])
+metadata/_edit_group_ = true
+
+[node name="RigidBody3D" type="RigidBody3D" parent="Props/Prop8" unique_id=1989237265]
+collision_layer = 4
+collision_mask = 5
+mass = 0.3
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="Props/Prop8/RigidBody3D" unique_id=482367324]
+material_override = SubResource("StandardMaterial3D_oi7y5")
+mesh = SubResource("BoxMesh_g4yam")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Props/Prop8/RigidBody3D" unique_id=1341782159]
+shape = SubResource("BoxShape3D_oi7y5")
+
+[node name="Prop9" type="Node3D" parent="Props" unique_id=1203440899]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.22978991, 1.3432118, -5)
+script = ExtResource("4_m1tc5")
+behaviour_components = Array[ExtResource("5_q0834")]([SubResource("Resource_7jwih"), SubResource("Resource_4mbsh"), SubResource("Resource_tdnrb")])
+metadata/_edit_group_ = true
+
+[node name="RigidBody3D" type="RigidBody3D" parent="Props/Prop9" unique_id=759266304]
+collision_layer = 4
+collision_mask = 5
+mass = 0.3
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="Props/Prop9/RigidBody3D" unique_id=1141070242]
+material_override = SubResource("StandardMaterial3D_oi7y5")
+mesh = SubResource("BoxMesh_g4yam")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Props/Prop9/RigidBody3D" unique_id=2003553598]
+shape = SubResource("BoxShape3D_oi7y5")
+
+[node name="Prop10" type="Node3D" parent="Props" unique_id=1020857265]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.30449593, 1.3432118, -5)
+script = ExtResource("4_m1tc5")
+behaviour_components = Array[ExtResource("5_q0834")]([SubResource("Resource_7jwih"), SubResource("Resource_4mbsh"), SubResource("Resource_tdnrb")])
+metadata/_edit_group_ = true
+
+[node name="RigidBody3D" type="RigidBody3D" parent="Props/Prop10" unique_id=723412534]
+collision_layer = 4
+collision_mask = 5
+mass = 0.3
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="Props/Prop10/RigidBody3D" unique_id=1120794633]
+material_override = SubResource("StandardMaterial3D_oi7y5")
+mesh = SubResource("BoxMesh_g4yam")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Props/Prop10/RigidBody3D" unique_id=885700692]
+shape = SubResource("BoxShape3D_oi7y5")
+
+[node name="Prop12" type="Node3D" parent="Props" unique_id=678380472]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.9908668, 1.8738788, -5)
+script = ExtResource("4_m1tc5")
+behaviour_components = Array[ExtResource("5_q0834")]([SubResource("Resource_7jwih"), SubResource("Resource_4mbsh"), SubResource("Resource_tdnrb")])
+metadata/_edit_group_ = true
+
+[node name="RigidBody3D" type="RigidBody3D" parent="Props/Prop12" unique_id=2033274770]
+collision_layer = 4
+collision_mask = 5
+mass = 0.3
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="Props/Prop12/RigidBody3D" unique_id=1011976692]
+material_override = SubResource("StandardMaterial3D_oi7y5")
+mesh = SubResource("BoxMesh_g4yam")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Props/Prop12/RigidBody3D" unique_id=1144880117]
+shape = SubResource("BoxShape3D_oi7y5")
+
+[node name="Prop13" type="Node3D" parent="Props" unique_id=1459929344]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.45140105, 1.8738788, -5)
+script = ExtResource("4_m1tc5")
+behaviour_components = Array[ExtResource("5_q0834")]([SubResource("Resource_7jwih"), SubResource("Resource_4mbsh"), SubResource("Resource_tdnrb")])
+metadata/_edit_group_ = true
+
+[node name="RigidBody3D" type="RigidBody3D" parent="Props/Prop13" unique_id=553322189]
+collision_layer = 4
+collision_mask = 5
+mass = 0.3
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="Props/Prop13/RigidBody3D" unique_id=1795335518]
+material_override = SubResource("StandardMaterial3D_oi7y5")
+mesh = SubResource("BoxMesh_g4yam")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Props/Prop13/RigidBody3D" unique_id=204658167]
+shape = SubResource("BoxShape3D_oi7y5")
+
+[node name="Prop14" type="Node3D" parent="Props" unique_id=416603499]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.080589116, 1.8738788, -5)
+script = ExtResource("4_m1tc5")
+behaviour_components = Array[ExtResource("5_q0834")]([SubResource("Resource_7jwih"), SubResource("Resource_4mbsh"), SubResource("Resource_tdnrb")])
+metadata/_edit_group_ = true
+
+[node name="RigidBody3D" type="RigidBody3D" parent="Props/Prop14" unique_id=2025047165]
+collision_layer = 4
+collision_mask = 5
+mass = 0.3
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="Props/Prop14/RigidBody3D" unique_id=1857662118]
+material_override = SubResource("StandardMaterial3D_oi7y5")
+mesh = SubResource("BoxMesh_g4yam")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Props/Prop14/RigidBody3D" unique_id=922482563]
+shape = SubResource("BoxShape3D_oi7y5")
+
+[node name="Prop16" type="Node3D" parent="Props" unique_id=1337421969]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.7323853, 2.3965597, -5)
+script = ExtResource("4_m1tc5")
+behaviour_components = Array[ExtResource("5_q0834")]([SubResource("Resource_7jwih"), SubResource("Resource_4mbsh"), SubResource("Resource_tdnrb")])
+metadata/_edit_group_ = true
+
+[node name="RigidBody3D" type="RigidBody3D" parent="Props/Prop16" unique_id=601533942]
+collision_layer = 4
+collision_mask = 5
+mass = 0.3
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="Props/Prop16/RigidBody3D" unique_id=289398015]
+material_override = SubResource("StandardMaterial3D_oi7y5")
+mesh = SubResource("BoxMesh_g4yam")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Props/Prop16/RigidBody3D" unique_id=795962022]
+shape = SubResource("BoxShape3D_oi7y5")
+
+[node name="Prop17" type="Node3D" parent="Props" unique_id=1933780100]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.19291958, 2.3965597, -5)
+script = ExtResource("4_m1tc5")
+behaviour_components = Array[ExtResource("5_q0834")]([SubResource("Resource_7jwih"), SubResource("Resource_4mbsh"), SubResource("Resource_tdnrb")])
+metadata/_edit_group_ = true
+
+[node name="RigidBody3D" type="RigidBody3D" parent="Props/Prop17" unique_id=1663814922]
+collision_layer = 4
+collision_mask = 5
+mass = 0.3
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="Props/Prop17/RigidBody3D" unique_id=527572958]
+material_override = SubResource("StandardMaterial3D_oi7y5")
+mesh = SubResource("BoxMesh_g4yam")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Props/Prop17/RigidBody3D" unique_id=48367024]
+shape = SubResource("BoxShape3D_oi7y5")
+
+[node name="Prop19" type="Node3D" parent="Props" unique_id=1527761500]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.4676821, 2.9312713, -5)
+script = ExtResource("4_m1tc5")
+behaviour_components = Array[ExtResource("5_q0834")]([SubResource("Resource_7jwih"), SubResource("Resource_4mbsh"), SubResource("Resource_tdnrb")])
+metadata/_edit_group_ = true
+
+[node name="RigidBody3D" type="RigidBody3D" parent="Props/Prop19" unique_id=592801209]
+collision_layer = 4
+collision_mask = 5
+mass = 0.3
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="Props/Prop19/RigidBody3D" unique_id=2020732927]
+material_override = SubResource("StandardMaterial3D_oi7y5")
+mesh = SubResource("BoxMesh_g4yam")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Props/Prop19/RigidBody3D" unique_id=1003404468]
+shape = SubResource("BoxShape3D_oi7y5")
+
+[node name="Prop21" type="Node3D" parent="Props" unique_id=2143547268]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.19653115, 3.4694316, -5)
+script = ExtResource("4_m1tc5")
+behaviour_components = Array[ExtResource("5_q0834")]([SubResource("Resource_7jwih"), SubResource("Resource_4mbsh"), SubResource("Resource_tdnrb")])
+metadata/_edit_group_ = true
+
+[node name="RigidBody3D" type="RigidBody3D" parent="Props/Prop21" unique_id=799514951]
+collision_layer = 4
+collision_mask = 5
+mass = 0.3
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="Props/Prop21/RigidBody3D" unique_id=2026620060]
+material_override = SubResource("StandardMaterial3D_oi7y5")
+mesh = SubResource("BoxMesh_g4yam")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Props/Prop21/RigidBody3D" unique_id=1722610836]
+shape = SubResource("BoxShape3D_oi7y5")
+
+[node name="Prop20" type="Node3D" parent="Props" unique_id=716725576]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.0717836, 2.9312713, -5)
+script = ExtResource("4_m1tc5")
+behaviour_components = Array[ExtResource("5_q0834")]([SubResource("Resource_7jwih"), SubResource("Resource_4mbsh"), SubResource("Resource_tdnrb")])
+metadata/_edit_group_ = true
+
+[node name="RigidBody3D" type="RigidBody3D" parent="Props/Prop20" unique_id=285719404]
+collision_layer = 4
+collision_mask = 5
+mass = 0.3
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="Props/Prop20/RigidBody3D" unique_id=221014199]
+material_override = SubResource("StandardMaterial3D_oi7y5")
+mesh = SubResource("BoxMesh_g4yam")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Props/Prop20/RigidBody3D" unique_id=760522960]
+shape = SubResource("BoxShape3D_oi7y5")
+
+[node name="Prop18" type="Node3D" parent="Props" unique_id=1482524379]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.3390706, 2.3965597, -5)
+script = ExtResource("4_m1tc5")
+behaviour_components = Array[ExtResource("5_q0834")]([SubResource("Resource_7jwih"), SubResource("Resource_4mbsh"), SubResource("Resource_tdnrb")])
+metadata/_edit_group_ = true
+
+[node name="RigidBody3D" type="RigidBody3D" parent="Props/Prop18" unique_id=425625769]
+collision_layer = 4
+collision_mask = 5
+mass = 0.3
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="Props/Prop18/RigidBody3D" unique_id=87506929]
+material_override = SubResource("StandardMaterial3D_oi7y5")
+mesh = SubResource("BoxMesh_g4yam")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Props/Prop18/RigidBody3D" unique_id=1313280543]
+shape = SubResource("BoxShape3D_oi7y5")
+
+[node name="Prop15" type="Node3D" parent="Props" unique_id=966571524]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.61487496, 1.8738788, -5)
+script = ExtResource("4_m1tc5")
+behaviour_components = Array[ExtResource("5_q0834")]([SubResource("Resource_7jwih"), SubResource("Resource_4mbsh"), SubResource("Resource_tdnrb")])
+metadata/_edit_group_ = true
+
+[node name="RigidBody3D" type="RigidBody3D" parent="Props/Prop15" unique_id=927930968]
+collision_layer = 4
+collision_mask = 5
+mass = 0.3
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="Props/Prop15/RigidBody3D" unique_id=2039809399]
+material_override = SubResource("StandardMaterial3D_oi7y5")
+mesh = SubResource("BoxMesh_g4yam")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Props/Prop15/RigidBody3D" unique_id=1858847466]
+shape = SubResource("BoxShape3D_oi7y5")
+
+[node name="Prop11" type="Node3D" parent="Props" unique_id=2062135741]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.84737504, 1.3432118, -5)
+script = ExtResource("4_m1tc5")
+behaviour_components = Array[ExtResource("5_q0834")]([SubResource("Resource_7jwih"), SubResource("Resource_4mbsh"), SubResource("Resource_tdnrb")])
+metadata/_edit_group_ = true
+
+[node name="RigidBody3D" type="RigidBody3D" parent="Props/Prop11" unique_id=1697649363]
+collision_layer = 4
+collision_mask = 5
+mass = 0.3
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="Props/Prop11/RigidBody3D" unique_id=325166172]
+material_override = SubResource("StandardMaterial3D_oi7y5")
+mesh = SubResource("BoxMesh_g4yam")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Props/Prop11/RigidBody3D" unique_id=141071742]
+shape = SubResource("BoxShape3D_oi7y5")
+
+[connection signal="set_camera_mov_status" from="CharacterBody3D/CameraAnchorFPS/Camera3D/Interactor" to="CharacterBody3D" method="_on_interactor_set_camera_mov_status"]

@@ -13,21 +13,29 @@ var _grab_dist: float = 2.0
 var _grab_target_dist: float = 2.0
 var _current_hover: float = 0.3
 var _target_hover: float = 0.3
+var _initialized: bool = false
 
 
 func execute() -> void:
-	var origin_mode = prop.interactor_ref.origin
+	if prop.is_spinning:
+		return
 	
-	if prop.interactor_ref.get_input_state("grab", "released"):
-		prop.request_camera_release()
+	if prop.interactor_ref.get_action_state(prop.trigger, "released"):
+		_initialized = false
 		prop.request_interaction_end()
 		return
 	
-	if prop.interactor_ref.get_input_state("approx", "just_pressed"):
+	if not _initialized:
+		_target_hover = hover_height
+		_current_hover = hover_height
+		_initialized = true
+	
+	if prop.interactor_ref.get_action_state("approx", "just_pressed"):
 		_approx_object()
-	if prop.interactor_ref.get_input_state("recede", "just_pressed"):
+	if prop.interactor_ref.get_action_state("recede", "just_pressed"):
 		_recede_object()
 	
+	var origin_mode := prop.interactor_ref.origin
 	var pos := Vector3.ZERO
 	
 	match origin_mode:
@@ -36,7 +44,11 @@ func execute() -> void:
 			_current_hover = lerp(_current_hover, _target_hover, 0.2)
 			pos = _calculate_target_pos()
 		prop.interactor_ref.RayOriginMode.CAMERA_MODE:
-			_grab_target_dist = clamp(_grab_target_dist, min_distance, max_distance)
+			_grab_target_dist = clamp(
+				_grab_target_dist, 
+				min_distance, 
+				max_distance
+			)
 			_grab_dist = lerp(_grab_dist, _grab_target_dist, 0.1)
 			pos = Vector3.INF
 		_:
@@ -45,9 +57,16 @@ func execute() -> void:
 	_create_joint(_grab_dist, grab_damping, spring_strength, pos)
 
 
-func _create_joint(dist: float, damping: float, strength: float, target_pos: Vector3 = Vector3.INF) -> void:
+func _create_joint(
+		dist: float, 
+		damping: float, 
+		strength: float, 
+		target_pos: Vector3 = Vector3.INF
+	) -> void:
+	
 	if target_pos == Vector3.INF and camera != null:
-		target_pos = camera.global_transform.origin - camera.global_transform.basis.z * dist
+		target_pos = camera.global_transform.origin - \
+		camera.global_transform.basis.z * dist
 	
 	var diff: Vector3 = target_pos - prop.target_body.global_transform.origin
 	var vel: Vector3 = prop.target_body.linear_velocity

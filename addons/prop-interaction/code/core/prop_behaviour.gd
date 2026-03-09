@@ -9,8 +9,8 @@ var prop : Prop
 var camera : Camera3D
 
 
-func setup(p: Prop) -> void:
-	prop = p
+func setup(value: Prop) -> void:
+	prop = value
 	camera = prop.get_viewport().get_camera_3d()
 	delta_visual = prop.get_process_delta_time()
 	delta_physics = prop.get_physics_process_delta_time()

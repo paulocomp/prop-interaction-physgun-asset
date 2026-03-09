@@ -6,6 +6,8 @@
 [ext_resource type="Script" uid="uid://c1engl6178b6m" path="res://prop-interaction-framework/addons/prop-interaction/code/core/prop.gd" id="3_vedec"]
 [ext_resource type="Script" uid="uid://dmwos4uct0q5m" path="res://prop-interaction-framework/addons/prop-interaction/code/core/prop_behaviour.gd" id="4_3b7ul"]
 [ext_resource type="Script" uid="uid://dlak84ra64ufr" path="res://prop-interaction-framework/addons/prop-interaction/code/components/grab_behaviour.gd" id="5_ynviq"]
+[ext_resource type="Script" uid="uid://bwgkg4kewx5h5" path="res://prop-interaction-framework/addons/prop-interaction/code/components/spin_behaviour.gd" id="7_ynviq"]
+[ext_resource type="Script" uid="uid://dd5gl5wkasr1x" path="res://prop-interaction-framework/addons/debugging/debug_ui.gd" id="8_7jwih"]
 
 [sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_63hkr"]
 sky_horizon_color = Color(0.66224277, 0.6717428, 0.6867428, 1)
@@ -20,16 +22,16 @@ sky = SubResource("Sky_5xkgv")
 tonemap_mode = 2
 glow_enabled = true
 
-[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_a25e7"]
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_3b7ul"]
 albedo_texture = ExtResource("1_kaun1")
 uv1_triplanar = true
 texture_filter = 4
 
-[sub_resource type="BoxMesh" id="BoxMesh_63hkr"]
-size = Vector3(30, 1, 10)
+[sub_resource type="BoxMesh" id="BoxMesh_ynviq"]
+size = Vector3(30, 1, 30)
 
-[sub_resource type="BoxShape3D" id="BoxShape3D_63hkr"]
-size = Vector3(30, 1, 10)
+[sub_resource type="BoxShape3D" id="BoxShape3D_7jwih"]
+size = Vector3(30, 1, 30)
 
 [sub_resource type="Resource" id="Resource_3b7ul"]
 script = ExtResource("5_ynviq")
@@ -48,6 +50,14 @@ size = Vector3(0.5, 1, 0.5)
 [sub_resource type="BoxShape3D" id="BoxShape3D_a25e7"]
 size = Vector3(0.5, 1, 0.5)
 
+[sub_resource type="Resource" id="Resource_ynviq"]
+script = ExtResource("7_ynviq")
+trigger = "spin"
+metadata/_custom_type_script = "uid://bwgkg4kewx5h5"
+
+[sub_resource type="LabelSettings" id="LabelSettings_ynviq"]
+font_size = 15
+
 [node name="TdDemo" type="Node3D" unique_id=1561020677]
 
 [node name="Environment" type="Node3D" parent="." unique_id=79685008]
@@ -60,18 +70,18 @@ environment = SubResource("Environment_a25e7")
 transform = Transform3D(-0.8660254, -0.43301278, 0.25, 0, 0.49999997, 0.86602545, -0.50000006, 0.75, -0.43301266, 0, 0, 0)
 shadow_enabled = true
 
-[node name="Ground" type="StaticBody3D" parent="." unique_id=1047645483]
+[node name="Ground" type="StaticBody3D" parent="." unique_id=498708054]
 metadata/_edit_group_ = true
 
-[node name="MeshInstance3D" type="MeshInstance3D" parent="Ground" unique_id=1516552131]
-material_override = SubResource("StandardMaterial3D_a25e7")
-mesh = SubResource("BoxMesh_63hkr")
+[node name="MeshInstance3D" type="MeshInstance3D" parent="Ground" unique_id=800884267]
+material_override = SubResource("StandardMaterial3D_3b7ul")
+mesh = SubResource("BoxMesh_ynviq")
 
-[node name="CollisionShape3D" type="CollisionShape3D" parent="Ground" unique_id=920063199]
-shape = SubResource("BoxShape3D_63hkr")
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Ground" unique_id=1859904594]
+shape = SubResource("BoxShape3D_7jwih")
 
 [node name="Camera3D" type="Camera3D" parent="." unique_id=831567017]
-transform = Transform3D(1, 0, 0, 0, 0.47507143, 0.87994725, 0, -0.87994725, 0.47507143, 0, 4.5226774, 4)
+transform = Transform3D(1, 0, 0, 0, 0.6080134, 0.7939267, 0, -0.7939267, 0.6080134, 0, 4.409731, 3.945109)
 metadata/_edit_group_ = true
 
 [node name="Interactor" type="Node3D" parent="Camera3D" unique_id=1455480549]
@@ -88,9 +98,10 @@ input_actions = {
 }
 
 [node name="Props" type="Node3D" parent="." unique_id=530488955]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 1.1701548)
 
 [node name="Prop0" type="Node3D" parent="Props" unique_id=1824761748]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
+transform = Transform3D(-8.881784e-16, 2.9802322e-08, -1, -1, -4.371139e-08, 0, -4.371139e-08, 1, 2.9802322e-08, -1.0897326, 0.7837832, 0)
 script = ExtResource("3_vedec")
 trigger = "throw"
 behaviour_components = Array[ExtResource("4_3b7ul")]([SubResource("Resource_3b7ul")])
@@ -106,3 +117,269 @@ mesh = SubResource("BoxMesh_a25e7")
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="Props/Prop0/RigidBody3D" unique_id=23143947]
 shape = SubResource("BoxShape3D_a25e7")
+
+[node name="Prop1" type="Node3D" parent="Props" unique_id=186133833]
+transform = Transform3D(-8.881784e-16, 2.9802322e-08, -1, -1, -4.371139e-08, 0, -4.371139e-08, 1, 2.9802322e-08, -0.5455517, 0.7837832, 0)
+script = ExtResource("3_vedec")
+trigger = "throw"
+behaviour_components = Array[ExtResource("4_3b7ul")]([SubResource("Resource_3b7ul")])
+metadata/_edit_group_ = true
+
+[node name="RigidBody3D" type="RigidBody3D" parent="Props/Prop1" unique_id=710514610]
+collision_layer = 4
+collision_mask = 5
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="Props/Prop1/RigidBody3D" unique_id=1558347066]
+material_override = SubResource("StandardMaterial3D_5xkgv")
+mesh = SubResource("BoxMesh_a25e7")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Props/Prop1/RigidBody3D" unique_id=2143551401]
+shape = SubResource("BoxShape3D_a25e7")
+
+[node name="Prop3" type="Node3D" parent="Props" unique_id=166642958]
+transform = Transform3D(-8.881784e-16, 2.9802322e-08, -1, -1, -4.371139e-08, 0, -4.371139e-08, 1, 2.9802322e-08, 0.012377024, 0.7837832, 0)
+script = ExtResource("3_vedec")
+trigger = "throw"
+behaviour_components = Array[ExtResource("4_3b7ul")]([SubResource("Resource_3b7ul")])
+metadata/_edit_group_ = true
+
+[node name="RigidBody3D" type="RigidBody3D" parent="Props/Prop3" unique_id=853115699]
+collision_layer = 4
+collision_mask = 5
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="Props/Prop3/RigidBody3D" unique_id=734865240]
+material_override = SubResource("StandardMaterial3D_5xkgv")
+mesh = SubResource("BoxMesh_a25e7")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Props/Prop3/RigidBody3D" unique_id=2077628532]
+shape = SubResource("BoxShape3D_a25e7")
+
+[node name="Prop4" type="Node3D" parent="Props" unique_id=566703373]
+transform = Transform3D(-8.881784e-16, 2.9802322e-08, -1, -1, -4.371139e-08, 0, -4.371139e-08, 1, 2.9802322e-08, 0.5688, 0.7837832, 0)
+script = ExtResource("3_vedec")
+trigger = "throw"
+behaviour_components = Array[ExtResource("4_3b7ul")]([SubResource("Resource_3b7ul")])
+metadata/_edit_group_ = true
+
+[node name="RigidBody3D" type="RigidBody3D" parent="Props/Prop4" unique_id=553398278]
+collision_layer = 4
+collision_mask = 5
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="Props/Prop4/RigidBody3D" unique_id=1831434278]
+material_override = SubResource("StandardMaterial3D_5xkgv")
+mesh = SubResource("BoxMesh_a25e7")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Props/Prop4/RigidBody3D" unique_id=546213296]
+shape = SubResource("BoxShape3D_a25e7")
+
+[node name="Prop6" type="Node3D" parent="Props" unique_id=123111485]
+transform = Transform3D(-8.881784e-16, 2.9802322e-08, -1, -1, -4.371139e-08, 0, -4.371139e-08, 1, 2.9802322e-08, -0.7894731, 1.3383608, 0)
+script = ExtResource("3_vedec")
+trigger = "throw"
+behaviour_components = Array[ExtResource("4_3b7ul")]([SubResource("Resource_3b7ul")])
+metadata/_edit_group_ = true
+
+[node name="RigidBody3D" type="RigidBody3D" parent="Props/Prop6" unique_id=218430293]
+collision_layer = 4
+collision_mask = 5
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="Props/Prop6/RigidBody3D" unique_id=725050644]
+material_override = SubResource("StandardMaterial3D_5xkgv")
+mesh = SubResource("BoxMesh_a25e7")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Props/Prop6/RigidBody3D" unique_id=1503005925]
+shape = SubResource("BoxShape3D_a25e7")
+
+[node name="Prop7" type="Node3D" parent="Props" unique_id=303557577]
+transform = Transform3D(-8.881784e-16, 2.9802322e-08, -1, -1, -4.371139e-08, 0, -4.371139e-08, 1, 2.9802322e-08, -0.24529219, 1.3383608, 0)
+script = ExtResource("3_vedec")
+trigger = "throw"
+behaviour_components = Array[ExtResource("4_3b7ul")]([SubResource("Resource_3b7ul")])
+metadata/_edit_group_ = true
+
+[node name="RigidBody3D" type="RigidBody3D" parent="Props/Prop7" unique_id=2002915358]
+collision_layer = 4
+collision_mask = 5
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="Props/Prop7/RigidBody3D" unique_id=72817587]
+material_override = SubResource("StandardMaterial3D_5xkgv")
+mesh = SubResource("BoxMesh_a25e7")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Props/Prop7/RigidBody3D" unique_id=2010239228]
+shape = SubResource("BoxShape3D_a25e7")
+
+[node name="Prop8" type="Node3D" parent="Props" unique_id=1761188258]
+transform = Transform3D(-8.881784e-16, 2.9802322e-08, -1, -1, -4.371139e-08, 0, -4.371139e-08, 1, 2.9802322e-08, 0.31263655, 1.3383608, 0)
+script = ExtResource("3_vedec")
+trigger = "throw"
+behaviour_components = Array[ExtResource("4_3b7ul")]([SubResource("Resource_3b7ul")])
+metadata/_edit_group_ = true
+
+[node name="RigidBody3D" type="RigidBody3D" parent="Props/Prop8" unique_id=1094759026]
+collision_layer = 4
+collision_mask = 5
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="Props/Prop8/RigidBody3D" unique_id=72995769]
+material_override = SubResource("StandardMaterial3D_5xkgv")
+mesh = SubResource("BoxMesh_a25e7")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Props/Prop8/RigidBody3D" unique_id=2105248213]
+shape = SubResource("BoxShape3D_a25e7")
+
+[node name="Prop10" type="Node3D" parent="Props" unique_id=1695924696]
+transform = Transform3D(-8.881784e-16, 2.9802322e-08, -1, -1, -4.371139e-08, 0, -4.371139e-08, 1, 2.9802322e-08, -0.49859518, 1.8822055, 0)
+script = ExtResource("3_vedec")
+trigger = "throw"
+behaviour_components = Array[ExtResource("4_3b7ul")]([SubResource("Resource_3b7ul")])
+metadata/_edit_group_ = true
+
+[node name="RigidBody3D" type="RigidBody3D" parent="Props/Prop10" unique_id=179466190]
+collision_layer = 4
+collision_mask = 5
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="Props/Prop10/RigidBody3D" unique_id=1568265161]
+material_override = SubResource("StandardMaterial3D_5xkgv")
+mesh = SubResource("BoxMesh_a25e7")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Props/Prop10/RigidBody3D" unique_id=1679983413]
+shape = SubResource("BoxShape3D_a25e7")
+
+[node name="Prop11" type="Node3D" parent="Props" unique_id=1625822694]
+transform = Transform3D(-8.881784e-16, 2.9802322e-08, -1, -1, -4.371139e-08, 0, -4.371139e-08, 1, 2.9802322e-08, 0.04558575, 1.8822055, 0)
+script = ExtResource("3_vedec")
+trigger = "throw"
+behaviour_components = Array[ExtResource("4_3b7ul")]([SubResource("Resource_3b7ul")])
+metadata/_edit_group_ = true
+
+[node name="RigidBody3D" type="RigidBody3D" parent="Props/Prop11" unique_id=1886596314]
+collision_layer = 4
+collision_mask = 5
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="Props/Prop11/RigidBody3D" unique_id=1861720487]
+material_override = SubResource("StandardMaterial3D_5xkgv")
+mesh = SubResource("BoxMesh_a25e7")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Props/Prop11/RigidBody3D" unique_id=2132260112]
+shape = SubResource("BoxShape3D_a25e7")
+
+[node name="Prop13" type="Node3D" parent="Props" unique_id=211953592]
+transform = Transform3D(-8.881784e-16, 2.9802322e-08, -1, -1, -4.371139e-08, 0, -4.371139e-08, 1, 2.9802322e-08, -0.20989323, 2.424065, 0)
+script = ExtResource("3_vedec")
+trigger = "throw"
+behaviour_components = Array[ExtResource("4_3b7ul")]([SubResource("Resource_3b7ul")])
+metadata/_edit_group_ = true
+
+[node name="RigidBody3D" type="RigidBody3D" parent="Props/Prop13" unique_id=744479538]
+collision_layer = 4
+collision_mask = 5
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="Props/Prop13/RigidBody3D" unique_id=1416373472]
+material_override = SubResource("StandardMaterial3D_5xkgv")
+mesh = SubResource("BoxMesh_a25e7")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Props/Prop13/RigidBody3D" unique_id=748384409]
+shape = SubResource("BoxShape3D_a25e7")
+
+[node name="Prop15" type="Node3D" parent="Props" unique_id=1904728938]
+transform = Transform3D(-8.881784e-16, 2.9802322e-08, -1, -1, -4.371139e-08, 0, -4.371139e-08, 1, 2.9802322e-08, 0.057901144, 2.962216, 0)
+script = ExtResource("3_vedec")
+trigger = "throw"
+behaviour_components = Array[ExtResource("4_3b7ul")]([SubResource("Resource_3b7ul"), SubResource("Resource_ynviq")])
+metadata/_edit_group_ = true
+
+[node name="RigidBody3D" type="RigidBody3D" parent="Props/Prop15" unique_id=1431860739]
+collision_layer = 4
+collision_mask = 5
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="Props/Prop15/RigidBody3D" unique_id=989554650]
+material_override = SubResource("StandardMaterial3D_5xkgv")
+mesh = SubResource("BoxMesh_a25e7")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Props/Prop15/RigidBody3D" unique_id=228943226]
+shape = SubResource("BoxShape3D_a25e7")
+
+[node name="Prop14" type="Node3D" parent="Props" unique_id=2092013563]
+transform = Transform3D(-8.881784e-16, 2.9802322e-08, -1, -1, -4.371139e-08, 0, -4.371139e-08, 1, 2.9802322e-08, 0.3342877, 2.424065, 0)
+script = ExtResource("3_vedec")
+trigger = "throw"
+behaviour_components = Array[ExtResource("4_3b7ul")]([SubResource("Resource_3b7ul")])
+metadata/_edit_group_ = true
+
+[node name="RigidBody3D" type="RigidBody3D" parent="Props/Prop14" unique_id=675601600]
+collision_layer = 4
+collision_mask = 5
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="Props/Prop14/RigidBody3D" unique_id=216242055]
+material_override = SubResource("StandardMaterial3D_5xkgv")
+mesh = SubResource("BoxMesh_a25e7")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Props/Prop14/RigidBody3D" unique_id=875487018]
+shape = SubResource("BoxShape3D_a25e7")
+
+[node name="Prop12" type="Node3D" parent="Props" unique_id=2108525051]
+transform = Transform3D(-8.881784e-16, 2.9802322e-08, -1, -1, -4.371139e-08, 0, -4.371139e-08, 1, 2.9802322e-08, 0.6035145, 1.8822055, 0)
+script = ExtResource("3_vedec")
+trigger = "throw"
+behaviour_components = Array[ExtResource("4_3b7ul")]([SubResource("Resource_3b7ul")])
+metadata/_edit_group_ = true
+
+[node name="RigidBody3D" type="RigidBody3D" parent="Props/Prop12" unique_id=1446815305]
+collision_layer = 4
+collision_mask = 5
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="Props/Prop12/RigidBody3D" unique_id=1344598633]
+material_override = SubResource("StandardMaterial3D_5xkgv")
+mesh = SubResource("BoxMesh_a25e7")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Props/Prop12/RigidBody3D" unique_id=2140887013]
+shape = SubResource("BoxShape3D_a25e7")
+
+[node name="Prop9" type="Node3D" parent="Props" unique_id=569352921]
+transform = Transform3D(-8.881784e-16, 2.9802322e-08, -1, -1, -4.371139e-08, 0, -4.371139e-08, 1, 2.9802322e-08, 0.8690595, 1.3383608, 0)
+script = ExtResource("3_vedec")
+trigger = "throw"
+behaviour_components = Array[ExtResource("4_3b7ul")]([SubResource("Resource_3b7ul")])
+metadata/_edit_group_ = true
+
+[node name="RigidBody3D" type="RigidBody3D" parent="Props/Prop9" unique_id=1869805292]
+collision_layer = 4
+collision_mask = 5
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="Props/Prop9/RigidBody3D" unique_id=1835001535]
+material_override = SubResource("StandardMaterial3D_5xkgv")
+mesh = SubResource("BoxMesh_a25e7")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Props/Prop9/RigidBody3D" unique_id=582206523]
+shape = SubResource("BoxShape3D_a25e7")
+
+[node name="Prop5" type="Node3D" parent="Props" unique_id=1346084795]
+transform = Transform3D(-8.881784e-16, 2.9802322e-08, -1, -1, -4.371139e-08, 0, -4.371139e-08, 1, 2.9802322e-08, 1.1249418, 0.7837832, 0)
+script = ExtResource("3_vedec")
+trigger = "throw"
+behaviour_components = Array[ExtResource("4_3b7ul")]([SubResource("Resource_3b7ul")])
+metadata/_edit_group_ = true
+
+[node name="RigidBody3D" type="RigidBody3D" parent="Props/Prop5" unique_id=730435032]
+collision_layer = 4
+collision_mask = 5
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="Props/Prop5/RigidBody3D" unique_id=767883397]
+material_override = SubResource("StandardMaterial3D_5xkgv")
+mesh = SubResource("BoxMesh_a25e7")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Props/Prop5/RigidBody3D" unique_id=1624858246]
+shape = SubResource("BoxShape3D_a25e7")
+
+[node name="HUD" type="CanvasLayer" parent="." unique_id=1580668246]
+follow_viewport_enabled = true
+
+[node name="DebugUI" type="Label" parent="HUD" unique_id=416371347 node_paths=PackedStringArray("interactor_ref")]
+offset_left = 31.0
+offset_top = 564.0
+offset_right = 165.0
+offset_bottom = 619.0
+text = "Detected Prop: 
+Current Prop:"
+label_settings = SubResource("LabelSettings_ynviq")
+script = ExtResource("8_7jwih")
+interactor_ref = NodePath("../../Camera3D/Interactor")
