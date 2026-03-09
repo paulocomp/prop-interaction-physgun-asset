@@ -82,7 +82,7 @@ mesh = SubResource("BoxMesh_ynviq")
 shape = SubResource("BoxShape3D_7jwih")
 
 [node name="CameraCharacter" type="Camera3D" parent="." unique_id=831567017]
-transform = Transform3D(1, 0, 0, 0, 0.78895545, 0.61445045, 0, -0.61445045, 0.78895545, 0, 5.409731, 4.7837152)
+transform = Transform3D(1, 0, 0, 0, 0.53141344, 0.84711266, 0, -0.84711266, 0.53141344, 0, 6.4596252, 4.7837152)
 metadata/_edit_group_ = true
 
 [node name="Interactor" type="Node3D" parent="CameraCharacter" unique_id=1455480549]
