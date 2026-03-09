@@ -39,6 +39,11 @@ hover_height = 0.6
 trigger = "throw"
 metadata/_custom_type_script = "uid://dlak84ra64ufr"
 
+[sub_resource type="Resource" id="Resource_7jwih"]
+script = ExtResource("7_ynviq")
+trigger = "spin"
+metadata/_custom_type_script = "uid://bwgkg4kewx5h5"
+
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_5xkgv"]
 albedo_texture = ExtResource("3_1fjbt")
 uv1_triplanar = true
@@ -49,11 +54,6 @@ size = Vector3(0.5, 1, 0.5)
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_a25e7"]
 size = Vector3(0.5, 1, 0.5)
-
-[sub_resource type="Resource" id="Resource_ynviq"]
-script = ExtResource("7_ynviq")
-trigger = "spin"
-metadata/_custom_type_script = "uid://bwgkg4kewx5h5"
 
 [sub_resource type="LabelSettings" id="LabelSettings_ynviq"]
 font_size = 15
@@ -104,7 +104,7 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 1.1701548)
 transform = Transform3D(-8.881784e-16, 2.9802322e-08, -1, -1, -4.371139e-08, 0, -4.371139e-08, 1, 2.9802322e-08, -1.0897326, 0.7837832, 0)
 script = ExtResource("3_vedec")
 trigger = "throw"
-behaviour_components = Array[ExtResource("4_3b7ul")]([SubResource("Resource_3b7ul")])
+behaviour_components = Array[ExtResource("4_3b7ul")]([SubResource("Resource_3b7ul"), SubResource("Resource_7jwih")])
 metadata/_edit_group_ = true
 
 [node name="RigidBody3D" type="RigidBody3D" parent="Props/Prop0" unique_id=333494045]
@@ -122,7 +122,7 @@ shape = SubResource("BoxShape3D_a25e7")
 transform = Transform3D(-8.881784e-16, 2.9802322e-08, -1, -1, -4.371139e-08, 0, -4.371139e-08, 1, 2.9802322e-08, -0.5455517, 0.7837832, 0)
 script = ExtResource("3_vedec")
 trigger = "throw"
-behaviour_components = Array[ExtResource("4_3b7ul")]([SubResource("Resource_3b7ul")])
+behaviour_components = Array[ExtResource("4_3b7ul")]([SubResource("Resource_3b7ul"), SubResource("Resource_7jwih")])
 metadata/_edit_group_ = true
 
 [node name="RigidBody3D" type="RigidBody3D" parent="Props/Prop1" unique_id=710514610]
@@ -140,7 +140,7 @@ shape = SubResource("BoxShape3D_a25e7")
 transform = Transform3D(-8.881784e-16, 2.9802322e-08, -1, -1, -4.371139e-08, 0, -4.371139e-08, 1, 2.9802322e-08, 0.012377024, 0.7837832, 0)
 script = ExtResource("3_vedec")
 trigger = "throw"
-behaviour_components = Array[ExtResource("4_3b7ul")]([SubResource("Resource_3b7ul")])
+behaviour_components = Array[ExtResource("4_3b7ul")]([SubResource("Resource_3b7ul"), SubResource("Resource_7jwih")])
 metadata/_edit_group_ = true
 
 [node name="RigidBody3D" type="RigidBody3D" parent="Props/Prop3" unique_id=853115699]
@@ -158,7 +158,7 @@ shape = SubResource("BoxShape3D_a25e7")
 transform = Transform3D(-8.881784e-16, 2.9802322e-08, -1, -1, -4.371139e-08, 0, -4.371139e-08, 1, 2.9802322e-08, 0.5688, 0.7837832, 0)
 script = ExtResource("3_vedec")
 trigger = "throw"
-behaviour_components = Array[ExtResource("4_3b7ul")]([SubResource("Resource_3b7ul")])
+behaviour_components = Array[ExtResource("4_3b7ul")]([SubResource("Resource_3b7ul"), SubResource("Resource_7jwih")])
 metadata/_edit_group_ = true
 
 [node name="RigidBody3D" type="RigidBody3D" parent="Props/Prop4" unique_id=553398278]
@@ -176,7 +176,7 @@ shape = SubResource("BoxShape3D_a25e7")
 transform = Transform3D(-8.881784e-16, 2.9802322e-08, -1, -1, -4.371139e-08, 0, -4.371139e-08, 1, 2.9802322e-08, -0.7894731, 1.3383608, 0)
 script = ExtResource("3_vedec")
 trigger = "throw"
-behaviour_components = Array[ExtResource("4_3b7ul")]([SubResource("Resource_3b7ul")])
+behaviour_components = Array[ExtResource("4_3b7ul")]([SubResource("Resource_3b7ul"), SubResource("Resource_7jwih")])
 metadata/_edit_group_ = true
 
 [node name="RigidBody3D" type="RigidBody3D" parent="Props/Prop6" unique_id=218430293]
@@ -194,7 +194,7 @@ shape = SubResource("BoxShape3D_a25e7")
 transform = Transform3D(-8.881784e-16, 2.9802322e-08, -1, -1, -4.371139e-08, 0, -4.371139e-08, 1, 2.9802322e-08, -0.24529219, 1.3383608, 0)
 script = ExtResource("3_vedec")
 trigger = "throw"
-behaviour_components = Array[ExtResource("4_3b7ul")]([SubResource("Resource_3b7ul")])
+behaviour_components = Array[ExtResource("4_3b7ul")]([SubResource("Resource_3b7ul"), SubResource("Resource_7jwih")])
 metadata/_edit_group_ = true
 
 [node name="RigidBody3D" type="RigidBody3D" parent="Props/Prop7" unique_id=2002915358]
@@ -212,7 +212,7 @@ shape = SubResource("BoxShape3D_a25e7")
 transform = Transform3D(-8.881784e-16, 2.9802322e-08, -1, -1, -4.371139e-08, 0, -4.371139e-08, 1, 2.9802322e-08, 0.31263655, 1.3383608, 0)
 script = ExtResource("3_vedec")
 trigger = "throw"
-behaviour_components = Array[ExtResource("4_3b7ul")]([SubResource("Resource_3b7ul")])
+behaviour_components = Array[ExtResource("4_3b7ul")]([SubResource("Resource_3b7ul"), SubResource("Resource_7jwih")])
 metadata/_edit_group_ = true
 
 [node name="RigidBody3D" type="RigidBody3D" parent="Props/Prop8" unique_id=1094759026]
@@ -230,7 +230,7 @@ shape = SubResource("BoxShape3D_a25e7")
 transform = Transform3D(-8.881784e-16, 2.9802322e-08, -1, -1, -4.371139e-08, 0, -4.371139e-08, 1, 2.9802322e-08, -0.49859518, 1.8822055, 0)
 script = ExtResource("3_vedec")
 trigger = "throw"
-behaviour_components = Array[ExtResource("4_3b7ul")]([SubResource("Resource_3b7ul")])
+behaviour_components = Array[ExtResource("4_3b7ul")]([SubResource("Resource_3b7ul"), SubResource("Resource_7jwih")])
 metadata/_edit_group_ = true
 
 [node name="RigidBody3D" type="RigidBody3D" parent="Props/Prop10" unique_id=179466190]
@@ -248,7 +248,7 @@ shape = SubResource("BoxShape3D_a25e7")
 transform = Transform3D(-8.881784e-16, 2.9802322e-08, -1, -1, -4.371139e-08, 0, -4.371139e-08, 1, 2.9802322e-08, 0.04558575, 1.8822055, 0)
 script = ExtResource("3_vedec")
 trigger = "throw"
-behaviour_components = Array[ExtResource("4_3b7ul")]([SubResource("Resource_3b7ul")])
+behaviour_components = Array[ExtResource("4_3b7ul")]([SubResource("Resource_3b7ul"), SubResource("Resource_7jwih")])
 metadata/_edit_group_ = true
 
 [node name="RigidBody3D" type="RigidBody3D" parent="Props/Prop11" unique_id=1886596314]
@@ -266,7 +266,7 @@ shape = SubResource("BoxShape3D_a25e7")
 transform = Transform3D(-8.881784e-16, 2.9802322e-08, -1, -1, -4.371139e-08, 0, -4.371139e-08, 1, 2.9802322e-08, -0.20989323, 2.424065, 0)
 script = ExtResource("3_vedec")
 trigger = "throw"
-behaviour_components = Array[ExtResource("4_3b7ul")]([SubResource("Resource_3b7ul")])
+behaviour_components = Array[ExtResource("4_3b7ul")]([SubResource("Resource_3b7ul"), SubResource("Resource_7jwih")])
 metadata/_edit_group_ = true
 
 [node name="RigidBody3D" type="RigidBody3D" parent="Props/Prop13" unique_id=744479538]
@@ -284,7 +284,7 @@ shape = SubResource("BoxShape3D_a25e7")
 transform = Transform3D(-8.881784e-16, 2.9802322e-08, -1, -1, -4.371139e-08, 0, -4.371139e-08, 1, 2.9802322e-08, 0.057901144, 2.962216, 0)
 script = ExtResource("3_vedec")
 trigger = "throw"
-behaviour_components = Array[ExtResource("4_3b7ul")]([SubResource("Resource_3b7ul"), SubResource("Resource_ynviq")])
+behaviour_components = Array[ExtResource("4_3b7ul")]([SubResource("Resource_3b7ul"), SubResource("Resource_7jwih")])
 metadata/_edit_group_ = true
 
 [node name="RigidBody3D" type="RigidBody3D" parent="Props/Prop15" unique_id=1431860739]
@@ -302,7 +302,7 @@ shape = SubResource("BoxShape3D_a25e7")
 transform = Transform3D(-8.881784e-16, 2.9802322e-08, -1, -1, -4.371139e-08, 0, -4.371139e-08, 1, 2.9802322e-08, 0.3342877, 2.424065, 0)
 script = ExtResource("3_vedec")
 trigger = "throw"
-behaviour_components = Array[ExtResource("4_3b7ul")]([SubResource("Resource_3b7ul")])
+behaviour_components = Array[ExtResource("4_3b7ul")]([SubResource("Resource_3b7ul"), SubResource("Resource_7jwih")])
 metadata/_edit_group_ = true
 
 [node name="RigidBody3D" type="RigidBody3D" parent="Props/Prop14" unique_id=675601600]
@@ -320,7 +320,7 @@ shape = SubResource("BoxShape3D_a25e7")
 transform = Transform3D(-8.881784e-16, 2.9802322e-08, -1, -1, -4.371139e-08, 0, -4.371139e-08, 1, 2.9802322e-08, 0.6035145, 1.8822055, 0)
 script = ExtResource("3_vedec")
 trigger = "throw"
-behaviour_components = Array[ExtResource("4_3b7ul")]([SubResource("Resource_3b7ul")])
+behaviour_components = Array[ExtResource("4_3b7ul")]([SubResource("Resource_3b7ul"), SubResource("Resource_7jwih")])
 metadata/_edit_group_ = true
 
 [node name="RigidBody3D" type="RigidBody3D" parent="Props/Prop12" unique_id=1446815305]
@@ -338,7 +338,7 @@ shape = SubResource("BoxShape3D_a25e7")
 transform = Transform3D(-8.881784e-16, 2.9802322e-08, -1, -1, -4.371139e-08, 0, -4.371139e-08, 1, 2.9802322e-08, 0.8690595, 1.3383608, 0)
 script = ExtResource("3_vedec")
 trigger = "throw"
-behaviour_components = Array[ExtResource("4_3b7ul")]([SubResource("Resource_3b7ul")])
+behaviour_components = Array[ExtResource("4_3b7ul")]([SubResource("Resource_3b7ul"), SubResource("Resource_7jwih")])
 metadata/_edit_group_ = true
 
 [node name="RigidBody3D" type="RigidBody3D" parent="Props/Prop9" unique_id=1869805292]
@@ -356,7 +356,7 @@ shape = SubResource("BoxShape3D_a25e7")
 transform = Transform3D(-8.881784e-16, 2.9802322e-08, -1, -1, -4.371139e-08, 0, -4.371139e-08, 1, 2.9802322e-08, 1.1249418, 0.7837832, 0)
 script = ExtResource("3_vedec")
 trigger = "throw"
-behaviour_components = Array[ExtResource("4_3b7ul")]([SubResource("Resource_3b7ul")])
+behaviour_components = Array[ExtResource("4_3b7ul")]([SubResource("Resource_3b7ul"), SubResource("Resource_7jwih")])
 metadata/_edit_group_ = true
 
 [node name="RigidBody3D" type="RigidBody3D" parent="Props/Prop5" unique_id=730435032]
