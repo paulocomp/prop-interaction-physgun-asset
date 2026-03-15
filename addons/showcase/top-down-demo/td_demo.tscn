@@ -1,13 +1,13 @@
 [gd_scene format=3 uid="uid://b7kdx35mxjya1"]
 
-[ext_resource type="Texture2D" uid="uid://vxhkhct60hql" path="res://prop-interaction-physgun-asset/addons/third-party/godot-prototype-texture/PNG/grid_1024x1024/grid_black_1024x1024.png" id="1_kaun1"]
-[ext_resource type="Script" uid="uid://bncuy75qcktq0" path="res://prop-interaction-physgun-asset/addons/prop-interaction/code/core/interactor.gd" id="2_5xkgv"]
-[ext_resource type="Texture2D" uid="uid://y46m6d05vsct" path="res://prop-interaction-physgun-asset/addons/third-party/godot-prototype-texture/PNG/checker_512x512/checker_orange_512x512.png" id="3_1fjbt"]
-[ext_resource type="Script" uid="uid://luvh865xtquq" path="res://prop-interaction-physgun-asset/addons/prop-interaction/code/core/prop.gd" id="3_vedec"]
-[ext_resource type="Script" uid="uid://cvekh0tmg4nma" path="res://prop-interaction-physgun-asset/addons/prop-interaction/code/core/prop_behaviour.gd" id="4_3b7ul"]
-[ext_resource type="Script" uid="uid://bdlqxmfbor2ej" path="res://prop-interaction-physgun-asset/addons/prop-interaction/code/components/grab_behaviour.gd" id="5_ynviq"]
-[ext_resource type="Script" uid="uid://b3r531rdku0dp" path="res://prop-interaction-physgun-asset/addons/prop-interaction/code/components/spin_behaviour.gd" id="7_ynviq"]
-[ext_resource type="PackedScene" uid="uid://pj4scalt4jap" path="res://prop-interaction-physgun-asset/addons/debugging/debug_ui.tscn" id="8_7jwih"]
+[ext_resource type="Texture2D" uid="uid://vxhkhct60hql" path="res://asset/addons/third-party/godot-prototype-texture/PNG/grid_1024x1024/grid_black_1024x1024.png" id="1_kaun1"]
+[ext_resource type="Script" uid="uid://bncuy75qcktq0" path="res://asset/addons/prop-interaction/code/core/interactor.gd" id="2_5xkgv"]
+[ext_resource type="Texture2D" uid="uid://y46m6d05vsct" path="res://asset/addons/third-party/godot-prototype-texture/PNG/checker_512x512/checker_orange_512x512.png" id="3_1fjbt"]
+[ext_resource type="Script" uid="uid://luvh865xtquq" path="res://asset/addons/prop-interaction/code/core/prop.gd" id="3_vedec"]
+[ext_resource type="Script" uid="uid://cvekh0tmg4nma" path="res://asset/addons/prop-interaction/code/core/prop_behaviour.gd" id="4_3b7ul"]
+[ext_resource type="Script" uid="uid://bdlqxmfbor2ej" path="res://asset/addons/prop-interaction/code/components/grab_behaviour.gd" id="5_ynviq"]
+[ext_resource type="Script" uid="uid://b3r531rdku0dp" path="res://asset/addons/prop-interaction/code/components/spin_behaviour.gd" id="7_ynviq"]
+[ext_resource type="PackedScene" uid="uid://pj4scalt4jap" path="res://asset/addons/debugging/debug_ui.tscn" id="8_7jwih"]
 
 [sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_63hkr"]
 sky_horizon_color = Color(0.66224277, 0.6717428, 0.6867428, 1)

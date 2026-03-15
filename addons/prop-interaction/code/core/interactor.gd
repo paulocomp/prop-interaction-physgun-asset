@@ -115,7 +115,9 @@ func _detect_prop(ray_origin: Vector2) -> Dictionary:
 	var from = camera.project_ray_origin(ray_origin)
 	var normal = camera.project_ray_normal(ray_origin)
 	var to = from + normal * ray_reach
+	
 	ray_hit_pos = to
+	
 	var result = _cast_ray(from, to)
 	
 	if result:
